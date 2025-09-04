@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Details - Stylezon</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f7fa;
+            color: #1a1a1a;
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .navbar {
+            background: linear-gradient(90deg, #0f1c2e, #1a2a44);
+            color: white;
+            padding: 15px 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.3);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 26px;
+            font-weight: bold;
+            color: #f4b30f;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            transition: color 0.3s;
+        }
+
+        .logo i {
+            margin-right: 10px;
+            font-size: 30px;
+        }
+
+        .logo:hover {
+            color: #ffcc33;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-item {
+            margin-left: 25px;
+            color: white;
+            text-decoration: none;
+            font-size: 15px;
+            display: flex;
+            align-items: center;
+            transition: color 0.3s;
+        }
+
+        .nav-item:hover {
+            color: #f4b30f;
+        }
+
+        .nav-item i {
+            margin-right: 6px;
+        }
+
+        .cart-container {
+            position: relative;
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background-color: #f4b30f;
+            color: #000;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .container {
+            max-width: 1300px;
+            margin: 30px auto;
+            padding: 0 30px;
+            flex: 1;
+        }
+
+        .breadcrumb {
+            font-size: 14px;
+            color: #6b7280;
+            margin-bottom: 20px;
+            padding: 10px 0;
+        }
+
+        .breadcrumb a {
+            color: #2563eb;
+            text-decoration: none;
+        }
+
+        .breadcrumb a:hover {
+            color: #1d4ed8;
+            text-decoration: underline;
+        }
+
+        .main-content {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .product-details {
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-image {
+            height: 400px;
+            background-color: #f9fafb;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .product-image img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            transition: transform 0.3s;
+        }
+
+        .product-image:hover img {
+            transform: scale(1.05);
+        }
+
+        .product-info h2 {
+            font-size: 24px;
+            margin-bottom: 15px;
+            color: #1a1a1a;
+        }
+
+        .product-rating {
+            color: #f4b30f;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .product-rating span {
+            color: #6b7280;
+            font-size: 14px;
+            margin-left: 8px;
+        }
+
+        .product-price {
+            font-size: 28px;
+            font-weight: bold;
+            color: #1a1a1a;
+            margin-bottom: 15px;
+        }
+
+        .prime-badge {
+            display: inline-block;
+            background-color: #e5f2f7;
+            color: #0d6efd;
+            font-size: 12px;
+            padding: 4px 10px;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .product-shipping {
+            font-size: 14px;
+            color: #6b7280;
+            margin-bottom: 20px;
+        }
+
+        .product-description {
+            margin-bottom: 20px;
+            color: #4b5563;
+            line-height: 1.8;
+        }
+
+        .add-to-cart {
+            background-color: #f4b30f;
+            border: none;
+            border-radius: 20px;
+            padding: 12px 30px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.3s;
+        }
+
+        .add-to-cart:hover {
+            background-color: #e0a00a;
+        }
+
+         .footer {
+            background-color: #0f1c2e;
+            color: #d1d5db;
+            padding: 40px 0 20px;
+            margin-top: 50px;
+        }
+
+        .footer-content {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 30px;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 40px;
+        }
+
+        .footer-section {
+            min-width: 200px;
+        }
+
+        .footer-section h3 {
+            font-size: 16px;
+            margin-bottom: 15px;
+            color: #f4b30f;
+        }
+
+        .footer-section a {
+            display: block;
+            color: #9ca3af;
+            text-decoration: none;
+            font-size: 14px;
+            margin-bottom: 10px;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: #f4b30f;
+        }
+
+        .copyright {
+            text-align: center;
+            padding: 20px;
+            font-size: 14px;
+            color: #9ca3af;
+            border-top: 1px solid #1a2a44;
+            margin-top: 30px;
+        }
+
+
+        /* Responsive styles */
+        @media (max-width: 900px) {
+            .main-content {
+                flex-direction: column;
+            }
+            .product-image {
+                height: 300px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 10px 15px;
+            }
+            .nav-links {
+                width: 100%;
+                justify-content: space-around;
+                margin-top: 10px;
+            }
+            .nav-item {
+                margin: 0 10px;
+            }
+            .product-image {
+                height: 250px;
+            }
+        }
+
+        @media (max-width: 500px) {
+            .container {
+                padding: 0 15px;
+            }
+            .product-image {
+                height: 200px;
+            }
+            .product-info h2 {
+                font-size: 20px;
+            }
+            .product-price {
+                font-size: 22px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <a href="index.html" class="logo">
+            <i class="fas fa-shopping-cart"></i>
+            Stylezon
+        </a>
+        <div class="nav-links">
+            <a href="index.html" class="nav-item">
+                <i class="fas fa-home"></i>
+                Home
+            </a>
+            <div class="cart-container">
+                <a href="checkout.html" class="nav-item" id="cartIcon">
+                    <i class="fas fa-shopping-cart"></i>
+                    Cart
+                    <span class="cart-count">0</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <!-- Breadcrumb -->
+        <div class="breadcrumb" id="breadcrumb">
+            <a href="index.html">Home</a> > <span id="categoryName"></span> > <span id="productName"></span>
+        </div>
+
+        <div class="main-content">
+            <div class="product-details" id="productDetails">
+                <!-- Product content will be injected here by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Get to Know Us</h3>
+                <a href="#">Careers</a>
+                <a href="#">Blog</a>
+                <a href="#">About Stylezon</a>
+                <a href="#">Investor Relations</a>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Make Money with Us</h3>
+                <a href="#">Sell products</a>
+                <a href="#">Sell on Stylezon</a>
+                <a href="#">Become an Affiliate</a>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Customer Service</h3>
+                <a href="#">Your Account</a>
+                <a href="#">Returns & Replacements</a>
+                <a href="#">Help</a>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            &copy; 2025 Stylezon. All rights reserved.
+        </div>
+    </footer>
+
+    <script>
+        // Sample product dataset
+        const products = [
+            { id: 1, name: "Wireless Earbuds with Noise Cancellation", category: "Electronics", price: 79.99, rating: 4.5, reviews: 4328, shipping: "prime", image: "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?q=80&w=1032&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", description: "High-quality wireless earbuds with advanced noise cancellation technology, perfect for music lovers and commuters.", dateAdded: "2023-06-01" },
+            { id: 2, name: "Smart Watch with Fitness Tracker", category: "Electronics", price: 199.99, rating: 4.0, reviews: 2451, shipping: "prime", image: "https://images.unsplash.com/photo-1579586337278-3befd40fd17a?q=80&w=872&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", description: "A sleek smartwatch with fitness tracking features, including heart rate monitoring and step counting.", dateAdded: "2023-05-15" },
+            { id: 3, name: "Men's Running Shoes - Lightweight", category: "Clothing", price: 89.99, rating: 5.0, reviews: 8742, shipping: "prime", image: "https://images.unsplash.com/photo-1715692965435-d181642ed2d2?q=80&w=876&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", description: "Lightweight running shoes designed for comfort and performance, ideal for long-distance runners.", dateAdded: "2023-07-01" },
+            { id: 4, name: "Programmable Coffee Maker, 12-Cup", category: "Home", price: 49.99, rating: 4.5, reviews: 5329, shipping: "prime", image: "https://images.unsplash.com/photo-1707241358597-bafcc8a8e73d?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", description: "A 12-cup programmable coffee maker with auto-shutoff and customizable brew strength.", dateAdded: "2023-04-20" },
+            { id: 5, name: "Waterproof Bluetooth Speaker", category: "Electronics", price: 59.99, rating: 4.0, reviews: 3876, shipping: "prime", image: "https://images.unsplash.com/photo-1598034989845-48532781987e?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", description: "A rugged, waterproof Bluetooth speaker with powerful sound, perfect for outdoor adventures.", dateAdded: "2023-06-15" },
+            { id: 6, name: "Extra Thick Yoga Mat", category: "Sports", price: 29.99, rating: 5.0, reviews: 7211, shipping: "prime", image: "https://images.unsplash.com/photo-1601925260368-ae2f83cf8b7f?q=80&w=580&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", description: "An extra-thick yoga mat providing superior cushioning and support for all types of yoga poses.", dateAdded: "2023-07-05" },
+            { id: 7, name: "Wireless Keyboard and Mouse", category: "Electronics", price: 39.99, rating: 4.2, reviews: 3150, shipping: "free", image: "https://images.unsplash.com/photo-1550009158-9ebf69173e03?q=80&w=901&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", description: "A wireless keyboard and mouse combo with ergonomic design and long battery life.", dateAdded: "2023-03-10" },
+            { id: 8, name: "Men's Casual Jacket", category: "Clothing", price: 120.00, rating: 4.3, reviews: 2980, shipping: "prime", image: "https://plus.unsplash.com/premium_photo-1670623042512-1a5ecebc3f42?q=80&w=464&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", description: "A stylish men's casual jacket, perfect for all seasons with a water-resistant finish.", dateAdded: "2023-06-20" },
+            { id: 9, name: "Air Fryer, 5.8 Qt", category: "Home", price: 89.99, rating: 4.7, reviews: 6500, shipping: "prime", image: "https://plus.unsplash.com/premium_photo-1672192166833-c8ae84e5e127?q=80&w=774&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", description: "A 5.8-quart air fryer with multiple cooking presets for healthy frying and baking.", dateAdded: "2023-05-01" },
+            { id: 10, name: "Camping Tent, 4-Person", category: "Sports", price: 149.99, rating: 4.1, reviews: 4200, shipping: "free", image: "https://images.unsplash.com/photo-1653526167310-714293464c9c?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", description: "A durable 4-person camping tent with weather-resistant fabric and easy setup.", dateAdded: "2023-07-10" }
+        ];
+
+        // Retrieve cart from localStorage
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        const cartCount = document.querySelector('.cart-count');
+        const productDetails = document.getElementById('productDetails');
+        const breadcrumb = document.getElementById('breadcrumb');
+        const categoryName = document.getElementById('categoryName');
+        const productName = document.getElementById('productName');
+        const fallbackImage = 'https://via.placeholder.com/400';
+
+        // Update cart count
+        function updateCartCount() {
+            const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
+            cartCount.textContent = totalItems;
+        }
+
+        // Add to cart function
+        function addToCart(product) {
+            const existingItem = cart.find(item => item.id === product.id);
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({
+                    id: product.id,
+                    name: product.name,
+                    price: product.price,
+                    image: product.image || fallbackImage,
+                    quantity: 1
+                });
+            }
+            updateCartCount();
+            localStorage.setItem('cart', JSON.stringify(cart));
+            alert(`${product.name} has been added to your cart!`);
+        }
+
+        // Generate star rating
+        function generateStarRating(rating) {
+            let stars = '';
+            for (let i = 1; i <= 5; i++) {
+                if (i <= Math.floor(rating)) {
+                    stars += '<i class="fas fa-star"></i>';
+                } else if (i === Math.ceil(rating) && rating % 1 !== 0) {
+                    stars += '<i class="fas fa-star-half-alt"></i>';
+                } else {
+                    stars += '<i class="far fa-star"></i>';
+                }
+            }
+            return stars;
+        }
+
+        // Initialize product details
+        document.addEventListener('DOMContentLoaded', function() {
+            updateCartCount();
+
+            // Get product ID from URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const productId = parseInt(urlParams.get('id'));
+
+            // Find the product
+            const product = products.find(p => p.id === productId);
+
+            if (product) {
+                // Update breadcrumb
+                categoryName.textContent = product.category;
+                productName.textContent = product.name;
+
+                // Render product details
+                productDetails.innerHTML = `
+                    <div class="product-image">
+                        <img src="${product.image || fallbackImage}" alt="${product.name}" loading="lazy">
+                    </div>
+                    <div class="product-info">
+                        <h2>${product.name}</h2>
+                        <div class="product-rating">
+                            ${generateStarRating(product.rating)}
+                            <span>${product.reviews.toLocaleString()} reviews</span>
+                        </div>
+                        <div class="product-price">$${product.price.toFixed(2)}</div>
+                        <div class="prime-badge">${product.shipping === 'prime' ? 'Prime' : ''}</div>
+                        <div class="product-shipping">
+                            ${product.shipping === 'prime' || product.shipping === 'free' 
+                                ? 'FREE delivery' 
+                                : 'Shipping: $5.99'}
+                        </div>
+                        <div class="product-description">${product.description}</div>
+                        <button class="add-to-cart" data-id="${product.id}" aria-label="Add ${product.name} to cart">Add to Cart</button>
+                    </div>
+                `;
+
+                // Add event listener to Add to Cart button
+                const addToCartBtn = document.querySelector('.add-to-cart');
+                addToCartBtn.addEventListener('click', function() {
+                    addToCart(product);
+                });
+            } else {
+                productDetails.innerHTML = '<p>Product not found.</p>';
+            }
+        });
+    </script>
+</body>
+</html>

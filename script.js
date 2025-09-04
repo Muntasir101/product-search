@@ -344,11 +344,11 @@
                 const productCard = document.createElement('div');
                 productCard.className = 'product-card';
                 productCard.innerHTML = `
-                    <div class="product-image">
+                    <a href="product.html?id=${product.id}" class="product-image">
                         <img src="${product.image || fallbackImage}" alt="${product.name}" loading="lazy">
-                    </div>
+                    </a>
                     <div class="product-info">
-                        <a href="/product.html?id=${product.id}" class="product-name">${product.name}</a>
+                        <a href="product.html?id=${product.id}" class="product-name">${product.name}</a>
                         <div class="product-rating">
                             ${stars}
                             <span>${product.reviews.toLocaleString()}</span>
