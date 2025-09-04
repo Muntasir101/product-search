@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - Stylezon</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f7fa;
+            color: #1a1a1a;
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .navbar {
+            background: linear-gradient(90deg, #0f1c2e, #1a2a44);
+            color: white;
+            padding: 15px 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.3);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 26px;
+            font-weight: bold;
+            color: #f4b30f;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            transition: color 0.3s;
+        }
+
+        .logo i {
+            margin-right: 10px;
+            font-size: 30px;
+        }
+
+        .logo:hover {
+            color: #ffcc33;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-item {
+            margin-left: 25px;
+            color: white;
+            text-decoration: none;
+            font-size: 15px;
+            display: flex;
+            align-items: center;
+            transition: color 0.3s;
+        }
+
+        .nav-item:hover {
+            color: #f4b30f;
+        }
+
+        .nav-item i {
+            margin-right: 6px;
+        }
+
+        .container {
+            max-width: 1300px;
+            margin: 30px auto;
+            padding: 0 30px;
+            flex: 1;
+        }
+
+        .breadcrumb {
+            font-size: 14px;
+            color: #6b7280;
+            margin-bottom: 20px;
+            padding: 10px 0;
+        }
+
+        .breadcrumb a {
+            color: #2563eb;
+            text-decoration: none;
+        }
+
+        .breadcrumb a:hover {
+            color: #1d4ed8;
+            text-decoration: underline;
+        }
+
+        .main-content {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .checkout-section {
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            width: 100%;
+        }
+
+        .checkout-section h2 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #1a1a1a;
+            border-bottom: 1px solid #e5e7eb;
+            padding-bottom: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #1a1a1a;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 14px;
+            background-color: #f9fafb;
+        }
+
+        .payment-methods {
+            margin: 20px 0;
+        }
+
+        .payment-method {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .payment-method input {
+            margin-right: 10px;
+        }
+
+        .payment-method label {
+            font-weight: normal;
+        }
+
+        .place-order-btn {
+            background-color: #2563eb;
+            color: #fff;
+            border: none;
+            border-radius: 20px;
+            padding: 12px 30px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            width: 100%;
+        }
+
+        .place-order-btn:hover {
+            background-color: #1d4ed8;
+        }
+
+        .order-summary {
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            width: 300px;
+            flex-shrink: 0;
+        }
+
+        .order-summary h3 {
+            font-size: 20px;
+            margin-bottom: 20px;
+            color: #1a1a1a;
+            border-bottom: 1px solid #e5e7eb;
+            padding-bottom: 10px;
+        }
+
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            font-size: 15px;
+        }
+
+        .summary-item.total {
+            font-weight: bold;
+            font-size: 18px;
+            border-top: 1px solid #e5e7eb;
+            padding-top: 15px;
+        }
+
+        .error {
+            color: #dc2626;
+            font-size: 14px;
+            margin-top: 5px;
+            display: none;
+        }
+
+        .cart-item {
+            display: flex;
+            padding: 10px 0;
+            border-bottom: 1px solid #e5e7eb;
+            align-items: center;
+        }
+
+        .cart-item-image {
+            width: 50px;
+            height: 50px;
+            object-fit: contain;
+            margin-right: 10px;
+            background-color: #f9fafb;
+            border-radius: 6px;
+            padding: 5px;
+        }
+
+        .cart-item-details {
+            flex: 1;
+        }
+
+        .cart-item-name {
+            font-size: 14px;
+            color: #1a1a1a;
+        }
+
+        .cart-item-price {
+            font-weight: bold;
+            color: #dc2626;
+        }
+
+         .footer {
+            background-color: #0f1c2e;
+            color: #d1d5db;
+            padding: 40px 0 20px;
+            margin-top: 50px;
+        }
+
+        .footer-content {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 30px;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 40px;
+        }
+
+        .footer-section {
+            min-width: 200px;
+        }
+
+        .footer-section h3 {
+            font-size: 16px;
+            margin-bottom: 15px;
+            color: #f4b30f;
+        }
+
+        .footer-section a {
+            display: block;
+            color: #9ca3af;
+            text-decoration: none;
+            font-size: 14px;
+            margin-bottom: 10px;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: #f4b30f;
+        }
+
+        .copyright {
+            text-align: center;
+            padding: 20px;
+            font-size: 14px;
+            color: #9ca3af;
+            border-top: 1px solid #1a2a44;
+            margin-top: 30px;
+        }
+
+
+        /* Responsive styles */
+        @media (max-width: 900px) {
+            .main-content {
+                flex-direction: column;
+            }
+            .order-summary {
+                width: 100%;
+                margin-top: 20px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 10px 15px;
+            }
+            .nav-links {
+                width: 100%;
+                justify-content: space-around;
+                margin-top: 10px;
+            }
+            .nav-item {
+                margin: 0 10px;
+            }
+        }
+
+        @media (max-width: 500px) {
+            .container {
+                padding: 0 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <a href="index.html" class="logo">
+            <i class="fas fa-shopping-cart"></i>
+            Stylezon
+        </a>
+        <div class="nav-links">
+            <a href="index.html" class="nav-item">
+                <i class="fas fa-home"></i>
+                Home
+            </a>
+            <div class="cart-container">
+                <a href="#" class="nav-item" id="cartIcon">
+                    <i class="fas fa-shopping-cart"></i>
+                    Cart
+                    <span class="cart-count">0</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <!-- Breadcrumb -->
+        <div class="breadcrumb">
+            <a href="index.html">Home</a> > <span>Checkout</span>
+        </div>
+
+        <div class="main-content">
+            <!-- Checkout Form -->
+            <div class="checkout-section">
+                <h2>Checkout</h2>
+
+                <div class="cart-items" id="cartItems">
+                    <div class="empty-cart-message" id="emptyCartMessage">Your cart is empty</div>
+                </div>
+
+                <form id="checkoutForm" novalidate>
+                    <h3>Shipping Information</h3>
+                    <div class="form-group">
+                        <label for="fullName">Full Name *</label>
+                        <input type="text" id="fullName" name="fullName" required aria-required="true">
+                        <div class="error" id="fullNameError">Please enter your full name.</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="address">Address *</label>
+                        <input type="text" id="address" name="address" required aria-required="true">
+                        <div class="error" id="addressError">Please enter your address.</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="city">City *</label>
+                        <input type="text" id="city" name="city" required aria-required="true">
+                        <div class="error" id="cityError">Please enter your city.</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="postalCode">Postal Code *</label>
+                        <input type="text" id="postalCode" name="postalCode" required aria-required="true" pattern="[0-9]{5,}">
+                        <div class="error" id="postalCodeError">Please enter a valid postal code (5+ digits).</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="country">Country *</label>
+                        <select id="country" name="country" required aria-required="true">
+                            <option value="">Select a country</option>
+                            <option value="US">United States</option>
+                            <option value="UK">United Kingdom</option>
+                            <option value="CA">Canada</option>
+                            <option value="AU">Australia</option>
+                            <option value="IN">India</option>
+                        </select>
+                        <div class="error" id="countryError">Please select a country.</div>
+                    </div>
+
+                    <h3>Payment Method</h3>
+                    <div class="payment-methods">
+                        <div class="payment-method">
+                            <input type="radio" id="creditCard" name="paymentMethod" value="creditCard" required aria-required="true">
+                            <label for="creditCard">Credit Card</label>
+                        </div>
+                        <div class="payment-method">
+                            <input type="radio" id="paypal" name="paymentMethod" value="paypal">
+                            <label for="paypal">PayPal</label>
+                        </div>
+                    </div>
+                    <div class="error" id="paymentError">Please select a payment method.</div>
+
+                    <button type="submit" class="place-order-btn" id="placeOrderBtn">Place Order</button>
+                </form>
+            </div>
+
+            <!-- Order Summary -->
+            <div class="order-summary">
+                <h3>Order Summary</h3>
+                <div id="summaryItems"></div>
+                <div class="summary-item total" id="totalSummary">Total: $0.00</div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Get to Know Us</h3>
+                <a href="#">Careers</a>
+                <a href="#">Blog</a>
+                <a href="#">About Stylezon</a>
+                <a href="#">Investor Relations</a>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Make Money with Us</h3>
+                <a href="#">Sell products</a>
+                <a href="#">Sell on Stylezon</a>
+                <a href="#">Become an Affiliate</a>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Customer Service</h3>
+                <a href="#">Your Account</a>
+                <a href="#">Returns & Replacements</a>
+                <a href="#">Help</a>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            &copy; 2025 Stylezon. All rights reserved.
+        </div>
+    </footer>
+
+    <script>
+        // Retrieve cart from localStorage
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        const cartCount = document.querySelector('.cart-count');
+        const cartItems = document.getElementById('cartItems');
+        const summaryItems = document.getElementById('summaryItems');
+        const totalSummary = document.getElementById('totalSummary');
+        const checkoutForm = document.getElementById('checkoutForm');
+        const emptyCartMessage = document.getElementById('emptyCartMessage');
+        const fallbackImage = 'https://via.placeholder.com/150';
+
+        // Update cart count and UI
+        function updateCartUI() {
+            const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
+            cartCount.textContent = totalItems;
+
+            if (cart.length === 0) {
+                emptyCartMessage.style.display = 'block';
+                summaryItems.innerHTML = '';
+                totalSummary.textContent = 'Total: $0.00';
+                return;
+            } else {
+                emptyCartMessage.style.display = 'none';
+            }
+
+            cartItems.innerHTML = '';
+            summaryItems.innerHTML = '';
+
+            cart.forEach(item => {
+                // Cart items display
+                const cartItem = document.createElement('div');
+                cartItem.className = 'cart-item';
+                cartItem.innerHTML = `
+                    <img src="${item.image || fallbackImage}" alt="${item.name}" class="cart-item-image">
+                    <div class="cart-item-details">
+                        <div class="cart-item-name">${item.name}</div>
+                        <div class="cart-item-price">$${item.price.toFixed(2)} x ${item.quantity}</div>
+                    </div>
+                `;
+                cartItems.appendChild(cartItem);
+
+                // Order summary items
+                const summaryItem = document.createElement('div');
+                summaryItem.className = 'summary-item';
+                summaryItem.innerHTML = `
+                    <span>${item.name} (x${item.quantity})</span>
+                    <span>$${ (item.price * item.quantity).toFixed(2) }</span>
+                `;
+                summaryItems.appendChild(summaryItem);
+            });
+
+            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            totalSummary.textContent = `Total: $${total.toFixed(2)}`;
+        }
+
+        // Form validation and order placement
+        checkoutForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            // Reset error messages
+            document.querySelectorAll('.error').forEach(error => error.style.display = 'none');
+
+            // Validate form fields
+            const fullName = document.getElementById('fullName').value.trim();
+            const address = document.getElementById('address').value.trim();
+            const city = document.getElementById('city').value.trim();
+            const postalCode = document.getElementById('postalCode').value.trim();
+            const country = document.getElementById('country').value;
+            const paymentMethod = document.querySelector('input[name="paymentMethod"]:checked');
+
+            let isValid = true;
+
+            if (!fullName) {
+                document.getElementById('fullNameError').style.display = 'block';
+                isValid = false;
+            }
+            if (!address) {
+                document.getElementById('addressError').style.display = 'block';
+                isValid = false;
+            }
+            if (!city) {
+                document.getElementById('cityError').style.display = 'block';
+                isValid = false;
+            }
+            if (!postalCode || !/^[0-9]{5,}$/.test(postalCode)) {
+                document.getElementById('postalCodeError').style.display = 'block';
+                isValid = false;
+            }
+            if (!country) {
+                document.getElementById('countryError').style.display = 'block';
+                isValid = false;
+            }
+            if (!paymentMethod) {
+                document.getElementById('paymentError').style.display = 'block';
+                isValid = false;
+            }
+
+            if (isValid) {
+                const orderDetails = {
+                    cart: cart,
+                    shipping: {
+                        fullName: fullName,
+                        address: address,
+                        city: city,
+                        postalCode: postalCode,
+                        country: country,
+                        paymentMethod: paymentMethod.value
+                    },
+                    total: cart.reduce((sum, item) => sum + (item.price * item.quantity), 0),
+                    date: new Date().toISOString()
+                };
+
+                // Simulate order placement
+                alert(`Order placed successfully!\nTotal: $${orderDetails.total.toFixed(2)}\nThank you for shopping with Stylezon!`);
+                localStorage.removeItem('cart'); // Clear cart after successful order
+                cart = [];
+                updateCartUI();
+                window.location.href = 'index.html'; // Redirect to home page
+            }
+        });
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            updateCartUI();
+
+            // Cart icon functionality (redirect to index)
+            const cartIcon = document.getElementById('cartIcon');
+            cartIcon.addEventListener('click', function(e) {
+                e.preventDefault();
+                window.location.href = 'index.html';
+            });
+        });
+    </script>
+</body>
+</html>
